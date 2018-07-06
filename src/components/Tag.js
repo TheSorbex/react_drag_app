@@ -7,7 +7,7 @@ class Tag extends Component {
       exitVisible: true,
       editable: false,
       text: 'Lorem',
-      coords:{
+      coords: {
         x: 0,
         y: 0
       }
@@ -15,8 +15,10 @@ class Tag extends Component {
   }
 
   checkRange = (main,draggable,e) => {
-        return (e.pageX >= main.getBoundingClientRect().left + draggable.offsetWidth/2) && (e.pageX <= main.getBoundingClientRect().right - draggable.offsetWidth/2)
-        && (e.pageY >= main.getBoundingClientRect().top + draggable.offsetHeight/2) && (e.pageY <= main.getBoundingClientRect().bottom - draggable.offsetHeight/2);
+        return (e.pageX >= main.getBoundingClientRect().left + draggable.offsetWidth/2) &&
+          (e.pageX <= main.getBoundingClientRect().right - draggable.offsetWidth/2) &&
+          (e.pageY >= main.getBoundingClientRect().top + draggable.offsetHeight/2) &&
+          (e.pageY <= main.getBoundingClientRect().bottom - draggable.offsetHeight/2)
   }
 
   remove = (e) => {
@@ -28,7 +30,7 @@ class Tag extends Component {
     e.stopPropagation();
       e.target.parentElement.onmousemove = (e) => {
         if (this.checkRange(e.target.parentElement.parentElement, e.target.parentElement, e)) {
-          if (e.target.parentElement.getBoundingClientRect().right >= e.target.parentElement.parentElement.getBoundingClientRect().right-20) {
+          if (e.target.parentElement.getBoundingClientRect().right >= e.target.parentElement.parentElement.getBoundingClientRect().right - 20) {
             e.target.parentElement.classList.add('reverse');
           } else {
             e.target.parentElement.classList.remove('reverse');
@@ -55,9 +57,8 @@ class Tag extends Component {
 
   toggleExitVisibility = (e) => {
     e.stopPropagation();
-    if ((!this.props.getBlock() && this.state.exitVisible) || (this.props.getBlock() && !this.state.exitVisible) ) {
+    if ((!this.props.getBlock() && this.state.exitVisible) || (this.props.getBlock() && !this.state.exitVisible)) {
       this.props.toggleBlock();
-      // this.toggleEditable();
       this.setState((prevState) => {
         return {
           exitVisible: !prevState.exitVisible
@@ -85,20 +86,43 @@ class Tag extends Component {
       return {
         text: newText.trim()
       }
-    }, () => {
-      console.log(this.state.text);
-    });
+    }, () => console.log(this.state.text));
     this.toggleEditable(e);
   }
 
   render(){
     return (
-      <div className="tagContainer" onMouseDown={this.dragTo} onDoubleClick={this.toggleEditable}
-      style={{left:this.props.left,top:this.props.top}}>
-          {this.state.editable ? <input onClick={(e)=>{e.stopPropagation()}} onBlur={this.changeText}/> : <div onClick={this.toggleExitVisibility}
-           className="container">{this.state.text}</div>}
-          <div className="exit" onClick={this.remove}
-          style={{display:this.state.exitVisible ? "none" : "block"}}>X
+      <div
+        className="tagContainer"
+        onMouseDown={this.dragTo}
+        onDoubleClick={this.toggleEditable}
+        onBlur={this.toggleExitVisibility}
+        style={{
+          left: this.props.left,
+          top: this.props.top
+        }}
+      >
+          {
+            this.state.editable ?
+              <input
+                value={this.state.text}
+                onChange={e => this.setState({ text: e.target.value })}
+                onClick={(e)=>{e.stopPropagation()}}
+                onBlur={this.toggleEditable}
+              /> :
+              <div
+                onClick={this.toggleExitVisibility}
+                className="container"
+              >
+                {this.state.text}
+              </div>
+          }
+          <div
+            className="exit"
+            onClick={this.remove}
+            style={{display:this.state.exitVisible ? "none" : "block"}}
+          >
+            X
           </div>
       </div>
     )

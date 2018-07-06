@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
-import TagContainer from './components/TagContainer'
+import TagsArea from './components/TagsArea'
 
 class App extends Component {
   render () {
     return (
       <div className='App'>
-        <TagContainer />
+        <TagsArea />
       </div>
     )
   }

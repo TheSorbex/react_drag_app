@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Tag from './Tag'
 
-class TagContainer extends Component {
+class TagsArea extends Component {
   state = {
     tags: [],
     block: false
@@ -37,12 +37,20 @@ class TagContainer extends Component {
       <div>
         <div onDoubleClick={this.addTag} className="mainContainer">
           {
-            this.state.tags.map((tag) => <Tag moveAt={this.moveAt} getBlock={this.getBlock} toggleBlock={this.toggleBlock} left={tag.x} top={tag.y} key={this.state.tags.indexOf(tag)}/>)
+            this.state.tags.map((tag) => <Tag
+              moveAt={this.moveAt}
+              getBlock={this.getBlock}
+              toggleBlock={this.toggleBlock}
+              left={tag.x}
+              top={tag.y}
+              key={this.state.tags.indexOf(tag)}
+            />)
           }
         </div>
+        <p id="advice">To edit text - press twice on tag</p>
       </div>
     )
   }
 }
 
-export default TagContainer;
+export default TagsArea;
