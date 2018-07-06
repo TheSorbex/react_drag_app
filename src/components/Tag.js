@@ -4,12 +4,12 @@ class Tag extends Component {
   constructor(props){
     super(props);
     this.state = {
-      exitVisible:true,
-      editable:false,
-      text:'Lorem',
+      exitVisible: true,
+      editable: false,
+      text: 'Lorem',
       coords:{
-        x:0,
-        y:0
+        x: 0,
+        y: 0
       }
     }
   }
@@ -27,7 +27,7 @@ class Tag extends Component {
   dragTo = (e) => {
     e.stopPropagation();
       e.target.parentElement.onmousemove = (e) => {
-        if (this.checkRange(e.target.parentElement.parentElement,e.target.parentElement,e)) {
+        if (this.checkRange(e.target.parentElement.parentElement, e.target.parentElement, e)) {
           if (e.target.parentElement.getBoundingClientRect().right >= e.target.parentElement.parentElement.getBoundingClientRect().right-20) {
             e.target.parentElement.classList.add('reverse');
           } else {
@@ -81,7 +81,6 @@ class Tag extends Component {
     if (!newText) {
       newText = 'Lorem';
     }
-    console.log(newText);
     this.setState(() => {
       return {
         text: newText.trim()
