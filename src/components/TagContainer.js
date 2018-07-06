@@ -14,9 +14,9 @@ class TagContainer extends Component {
       y: e.pageY + 'px'
     })
     this.setState((prevState) => {
-      return{
-      tags: prevState.tags.concat(arr)
-    }
+      return {
+        tags: prevState.tags.concat(arr)
+      }
     })
   }
 
